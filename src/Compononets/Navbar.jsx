@@ -15,11 +15,12 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 shadow-sm container px-4 mx-auto">
+    <div >
+      <div className="navbar  bg-base-100 shadow-sm container px-4 mx-auto">
       <div className="flex-1">
         <Link to="/" className="flex gap-2 items-center">
           <img className="w-auto h-7" src={logo} alt="Website Logo" />
-          <span className="font-bold text-lg">Lost & Found</span>
+          <span className="font-bold hidden lg:block lg:text-lg">Lost & Found</span>
         </Link>
       </div>
       <div className="flex-none">
@@ -82,6 +83,7 @@ const Navbar = () => {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 };

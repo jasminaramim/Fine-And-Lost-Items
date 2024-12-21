@@ -16,6 +16,7 @@ import AddFoundItemPage from "../Compononets/AddFoundItemPage";
 import ManageMyItemsPage from "../Compononets/ManageMyItemsPage";
 import LoginPage from "../Pages/LoginPage";
 import PrivateRoute from "./PrivateRoute";
+import RegisterPage from "../Pages/RegisterPage";
 
 const Router = createHashRouter([
   {
@@ -77,6 +78,15 @@ const Router = createHashRouter([
     element: (
       <Layout>
         <LoginPage />
+      </Layout>
+    ),
+  },
+
+  {
+    path: "/registration",
+    element: (
+      <Layout>
+        <RegisterPage />
       </Layout>
     ),
   },
