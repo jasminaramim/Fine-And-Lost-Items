@@ -20,21 +20,21 @@ const ManageMyItemsPage = () => {
         const user = auth.currentUser;
 
         if (user) {
-            setUserEmail(user.email); // Set user email in state
+            setUserEmail(user.email); 
         } else {
             Swal.fire('Error', 'User not authenticated. Please login.', 'error');
         }
     }, []);
 
     useEffect(() => {
-        if (!userEmail) return; // Only fetch items if email is available
+        if (!userEmail) return; 
 
         const fetchItems = async () => {
             try {
                 const response = await fetch(`${import.meta.env.VITE_API_URL}/items?email=${userEmail}`);
                 if (response.ok) {
                     const data = await response.json();
-                    setItems(data); // Update state with fetched items
+                    setItems(data); 
                 } else {
                     throw new Error('Failed to fetch items');
                 }
@@ -42,12 +42,12 @@ const ManageMyItemsPage = () => {
                 setError(error.message); 
                 Swal.fire('Error', error.message, 'error');
             } finally {
-                setIsLoading(false); // Stop loading
+                setIsLoading(false); 
             }
         };
         
         fetchItems();
-    }, [userEmail]); // Effect runs again when userEmail changes
+    }, [userEmail]);
 
     const modernDelete = async (id) => {
         const result = await Swal.fire({
@@ -61,7 +61,7 @@ const ManageMyItemsPage = () => {
 
         if (result.isConfirmed) {
             try {
-                const { data } = await axios.delete(`http://localhost:9000/items/${id}`);
+                const { data } = await axios.delete(`${import.meta.env.VITE_API_URL}/items/${id}`);
                 toast.success('Item Deleted Successfully!');
                 setItems(items.filter(item => item._id !== id));
             } catch (err) {

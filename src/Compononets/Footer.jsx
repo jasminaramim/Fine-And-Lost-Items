@@ -8,18 +8,18 @@ import footerBG from '../assets/imgs/grunge-metal-texture.jpg'; // Correct impor
 
 const Footer = () => {
   useEffect(() => {
-    AOS.init({ duration: 1500 }); // AOS initialization
+    AOS.init({ duration: 1500 }); 
   }, []);
 
   return (
     <footer
       className="relative bg-cover bg-center bg-no-repeat py-20"
-      style={{ backgroundImage: `url(${footerBG})` }} // Use the imported image here
+      style={{ backgroundImage: `url(${footerBG})` }} 
     >
-      <div className="absolute inset-0 "></div> {/* Overlay for better contrast */}
+      <div className="absolute inset-0 "></div> 
       <div className="container mx-auto px-6 text-white relative z-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
-          {/* Footer Left - Navigation */}
+        
           <div className="space-y-6" data-aos="fade-up">
             <h3 className="text-2xl font-semibold">Find Us</h3>
             <ul className="space-y-4">

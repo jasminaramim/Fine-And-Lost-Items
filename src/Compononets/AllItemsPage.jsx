@@ -6,7 +6,7 @@ const AllItemsPage = () => {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        // Fetch both lost and found items
+       
         const fetchItems = async () => {
             try {
                 const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/items`);

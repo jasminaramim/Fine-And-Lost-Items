@@ -20,7 +20,7 @@ const PostDetailsPage = () => {
     useEffect(() => {
         const fetchItemDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:9000/items/${id}`);
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/items/${id}`);
                 if (!response.ok) {
                     throw new Error("Item not found");
                 }

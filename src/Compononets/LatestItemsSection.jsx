@@ -8,14 +8,14 @@ const LatestItemsSection = () => {
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('dsc');  
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);  // Define the loading state
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchLatestItems();
   }, [filter, search, sort]);
 
   const fetchLatestItems = async () => {
-    setLoading(true);  // Set loading to true when fetching data
+    setLoading(true);  
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/items`);
       let filteredItems = response.data;
@@ -25,24 +25,23 @@ const LatestItemsSection = () => {
   
       if (filter) {
         filteredItems = filteredItems.filter(item =>
-          item.category.toLowerCase() === filter.toLowerCase() // Case insensitive comparison
+          item.category.toLowerCase() === filter.toLowerCase() 
         );
         console.log("Filtered items:", filteredItems); 
       }
   
-      // Search items by name
+
       if (search) {
         filteredItems = filteredItems.filter(item =>
           item.itemName.toLowerCase().includes(search.toLowerCase())
         );
       }
   
-      // Sort items by date
       filteredItems.sort((a, b) => {
         if (sort === 'dsc') {
-          return new Date(b.date) - new Date(a.date); // Descending
+          return new Date(b.date) - new Date(a.date);
         } else {
-          return new Date(a.date) - new Date(b.date); // Ascending
+          return new Date(a.date) - new Date(b.date); 
         }
       });
   
@@ -51,7 +50,7 @@ const LatestItemsSection = () => {
       setError('Failed to load items. Please try again later.');
       console.error('Error fetching items:', error);
     } finally {
-      setLoading(false);  // Set loading to false after data is fetched
+      setLoading(false);  
     }
   };
 

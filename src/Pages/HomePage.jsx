@@ -10,20 +10,19 @@ import Carousel from '../Compononets/Carousel';
 import LatestItemsSection from '../Compononets/LatestItemsSection';
 import { ReactTyped } from 'react-typed';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faStar, faThumbsUp } from '@fortawesome/free-solid-svg-icons'; // Import icons
+import { faStar, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 
 const HomePage = () => {
     useEffect(() => {
         Aos.init({ duration: 1000, once: false }); 
     }, []);
 
-    const [typedKey, setTypedKey] = useState(0); // State to force re-render of ReactTyped
+    const [typedKey, setTypedKey] = useState(0);
 
     const handleTypedComplete = () => {
         setTypedKey(prevKey => prevKey + 1); 
     };
 
-    // Lottie animation options for Features Section
     const featureOptions = {
         loop: true,
         autoplay: true,
@@ -33,7 +32,6 @@ const HomePage = () => {
         },
     };
 
-    // Lottie animation options for Testimonials Section
     const testimonialOptions = {
         loop: true,
         autoplay: true,
@@ -45,13 +43,8 @@ const HomePage = () => {
 
     return (
         <div className='container px-6 py-10 mx-auto'>
-            {/* Carousel Section */}
             <Carousel />
-
-            {/* Latest Items Section */}
             <LatestItemsSection />
-
-            {/* Features Section (with AOS and Lottie) */}
             <section
                 className="features my-12 mx-auto py-12 text-white rounded-xl shadow-lg"
                 style={{ 
@@ -92,8 +85,6 @@ const HomePage = () => {
                     </div>
                 </div>
             </section>
-
-            {/* Testimonials Section (with AOS and Lottie) */}
             <section
                 className="testimonials my-12 py-12 text-white rounded-xl shadow-lg"
                 style={{ 
