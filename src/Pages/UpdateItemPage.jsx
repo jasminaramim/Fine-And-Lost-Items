@@ -5,8 +5,8 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const UpdateItemPage = () => {
-    const { id } = useParams(); // Extract item ID from the URL
-    const { user } = useContext(AuthContext); // Get user info from AuthContext
+    const { id } = useParams(); 
+    const { user } = useContext(AuthContext); 
     const navigate = useNavigate();
 
     const [item, setItem] = useState({
@@ -18,7 +18,6 @@ const UpdateItemPage = () => {
     });
     const [isLoading, setIsLoading] = useState(true);
 
-    // Fetch existing item details
     useEffect(() => {
         const fetchItemDetails = async () => {
             try {
@@ -38,20 +37,19 @@ const UpdateItemPage = () => {
         fetchItemDetails();
     }, [id]);
 
-    // Handle form submission to update the item
     const handleSubmit = async (e) => {
         e.preventDefault();
     
         try {
             const response = await axios.put(
                 `${import.meta.env.VITE_API_URL}/items/${id}`,
-                item, // Ensure 'item' contains the updated data
-                { headers: { 'Content-Type': 'application/json' } } // Send as JSON
+                item, 
+                { headers: { 'Content-Type': 'application/json' } } 
             );
     
             if (response.status === 200) {
                 Swal.fire('Success', 'Item updated successfully!', 'success');
-                navigate('/'); // Redirect to home or relevant page
+                navigate('/'); 
             } else {
                 Swal.fire('Error', response.data.message || 'Failed to update item.', 'error');
             }
