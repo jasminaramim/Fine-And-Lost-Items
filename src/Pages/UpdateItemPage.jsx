@@ -40,7 +40,7 @@ const UpdateItemPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Check if essential fields are not empty
+       
         if (!item.itemName || !item.description || !item.category || !item.location) {
             return Swal.fire('Error', 'All fields are required.', 'error');
         }
@@ -54,7 +54,7 @@ const UpdateItemPage = () => {
 
             if (response.status === 200) {
                 Swal.fire('Success', 'Item updated successfully!', 'success');
-                navigate('/'); // Redirect after successful update
+                navigate('/manage-my-items'); 
             } else {
                 Swal.fire('Error', response.data.message || 'Failed to update item.', 'error');
             }
@@ -64,7 +64,7 @@ const UpdateItemPage = () => {
         }
     };
 
-    // Handle input changes
+   
     const handleChange = (e) => {
         const { name, value } = e.target;
         setItem({ ...item, [name]: value });
