@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { FaTh, FaTable } from 'react-icons/fa';
 import { Player } from '@lottiefiles/react-lottie-player';
+import noItemsAnimation from '../assets/notfound.json'; // Ensure this path is correct
 
 const RecoveryItems = () => {
   const [recoveredItems, setRecoveredItems] = useState([]);
@@ -27,55 +28,43 @@ const RecoveryItems = () => {
   const fetchRecoveredItems = async (email) => {
     setLoading(true);
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/recoveries?email=${email}`);
-        if (response.ok) {
-            const data = await response.json();
-            setRecoveredItems(data);
-            if (data.length === 0) {
-                setError('No recovered items found for this user.');
-            }
-        } else {
-            const errorData = await response.json();
-            setError(errorData.message || 'Failed to fetch recovered items.');
-        }
-    } catch (error) {
-        setError('Failed to fetch recovered items.');
-        Swal.fire('Error', 'Failed to fetch recovered items', 'error');
-    } finally {
-        setLoading(false);
-    }
-};
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/recoveries?email=${email}`);
+      if (response.ok) {
+        const data = await response.json();
+        setRecoveredItems(data);
+      if (data.length === 0) {
+  setError(<Player autoplay loop src={noItemsAnimation} className="w-1/2 mx-auto" />);
+}
 
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message || 'Failed to fetch recovered items.');
+      }
+    } catch (error) {
+      setError('Failed to fetch recovered items.');
+      Swal.fire('Error', 'Failed to fetch recovered items', 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const toggleLayout = () => {
     setIsGridLayout(!isGridLayout);
   };
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center my-10">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-t-transparent border-blue-500 border-solid rounded-full animate-spin"></div>
-          <p className="mt-4 text-gray-500">Loading your recovered items...</p>
-        </div>
-      </div>
-    );
-  }
+  
 
-  if (error) {
-    return <div className="text-center text-red-500">{error}</div>;
-  }
-
-  if (recoveredItems.length === 0) {
+  if (recoveredItems.length === 0 && !error) {
     return (
-      <div className="text-center">
-        <Player
-          autoplay
-          loop
-          src="../assets/notfound.json"
-          className="w-1/2 mx-auto"
-        />
-        <p className="text-gray-500 mt-4">No items have been recovered yet. You can start adding items to the recovery list!</p>
+      <div className="flex flex-col items-center justify-center p-10 text-center bg-gray-100 rounded-lg shadow-md">
+        <Player autoplay loop src={noItemsAnimation} className="w-1/2 mx-auto" />
+        <p className="mt-5 text-lg font-semibold text-gray-700">No recovered items found. Please add items to your collection.</p>
+        <button
+          onClick={() => navigate('/AllItemsPage')}
+          className="mt-5 px-6 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+        >
+          recovery an item
+        </button>
       </div>
     );
   }

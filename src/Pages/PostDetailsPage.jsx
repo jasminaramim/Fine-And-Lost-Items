@@ -44,15 +44,15 @@ const PostDetailsPage = () => {
             recoveredDate,
             recoveredBy: {
                 name: user.displayName,
-                email: user.email, 
+                email: user.email,
                 photoURL: user.photoURL,
             },
-            userEmail: user.email, 
+            userEmail: user.email,
             itemId: item._id,
             action: selectedAction,
         };
     
-        console.log("Recovery Data Sent:", recoveryData); 
+        console.log("Recovery Data Sent:", recoveryData);
     
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/recoveries`, {
@@ -66,11 +66,19 @@ const PostDetailsPage = () => {
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error("Server Error:", errorData);
+                Swal.fire('Error', 'There was an issue recovering the item. Please try again.', 'error');
             } else {
                 console.log("Recovery submitted successfully.");
+                // Show SweetAlert on success
+                Swal.fire('Success', 'The item has been successfully recovered!', 'success').then(() => {
+                    // Close the modal and navigate if needed
+                    setModalOpen(false);
+                    navigate('/'); // Redirect to home or desired page after recovery
+                });
             }
         } catch (error) {
             console.error("Error submitting recovery:", error);
+            Swal.fire('Error', 'An error occurred while submitting the recovery. Please try again.', 'error');
         }
     };
     
