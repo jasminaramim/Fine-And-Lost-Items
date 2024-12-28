@@ -44,18 +44,18 @@ const PostDetailsPage = () => {
             recoveredDate,
             recoveredBy: {
                 name: user.displayName,
-                email: user.email, // Ensure email exists here
+                email: user.email, 
                 photoURL: user.photoURL,
             },
-            userEmail: user.email, // Explicitly add userEmail
+            userEmail: user.email, 
             itemId: item._id,
             action: selectedAction,
         };
     
-        console.log("Recovery Data Sent:", recoveryData); // Debugging
+        console.log("Recovery Data Sent:", recoveryData); 
     
         try {
-            const response = await fetch('http://localhost:9000/recoveries', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/recoveries`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
