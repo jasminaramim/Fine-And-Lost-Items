@@ -5,14 +5,14 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const UpdateItemPage = () => {
-    const { id } = useParams(); 
-    const { user } = useContext(AuthContext); 
+    const { id } = useParams();
+    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [item, setItem] = useState({
-        title: '',
+        itemName: '',
         description: '',
-        postType: '',
+        category: '',
         location: '',
         contactInfo: '',
     });
@@ -39,27 +39,30 @@ const UpdateItemPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
+        // Check if essential fields are not empty
+        if (!item.itemName || !item.description || !item.category || !item.location) {
+            return Swal.fire('Error', 'All fields are required.', 'error');
+        }
+
         try {
-            const response = await axios.put(
-                `${import.meta.env.VITE_API_URL}/items/${id}`,
-                item, 
-                { headers: { 'Content-Type': 'application/json' } } 
+            const response = await axios.patch(
+                `${import.meta.env.VITE_API_URL}/updateItem/${id}`,
+                item,
+                { headers: { 'Content-Type': 'application/json' } }
             );
-    
+
             if (response.status === 200) {
                 Swal.fire('Success', 'Item updated successfully!', 'success');
-                navigate('/'); 
+                navigate('/'); // Redirect after successful update
             } else {
                 Swal.fire('Error', response.data.message || 'Failed to update item.', 'error');
             }
         } catch (error) {
-            console.error('Error updating item:', error); // Debugging AxiosError
+            console.error('Error updating item:', error.response?.data || error.message);
             Swal.fire('Error', 'An error occurred while updating the item.', 'error');
         }
     };
-    
-    
 
     // Handle input changes
     const handleChange = (e) => {
@@ -76,14 +79,14 @@ const UpdateItemPage = () => {
             <h2 className="text-2xl font-semibold mb-5">Update Item</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="itemName" className="block text-sm font-medium text-gray-700">
                         Title
                     </label>
                     <input
                         type="text"
-                        id="title"
-                        name="title"
-                        value={item.title}
+                        id="itemName"
+                        name="itemName"
+                        value={item.itemName}
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                         required
@@ -105,14 +108,14 @@ const UpdateItemPage = () => {
                 </div>
 
                 <div>
-                    <label htmlFor="postType" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="category" className="block text-sm font-medium text-gray-700">
                         Post Type
                     </label>
                     <input
                         type="text"
-                        id="postType"
-                        name="postType"
-                        value={item.postType}
+                        id="category"
+                        name="category"
+                        value={item.category}
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                         required
