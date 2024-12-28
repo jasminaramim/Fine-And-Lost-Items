@@ -24,7 +24,7 @@ const LoginPage = () => {
     }
   }
 
-  // Email Password Signin
+  
   const handleSignIn = async e => {
     e.preventDefault()
     const form = e.target
