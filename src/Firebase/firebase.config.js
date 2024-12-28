@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBuObLFssGSqy7Jv1LtEcWmo_ueH_5g8SM",
-  authDomain: "find-and-lost-items.firebaseapp.com",
-  projectId: "find-and-lost-items",
-  storageBucket: "find-and-lost-items.firebasestorage.app",
-  messagingSenderId: "1024023906597",
-  appId: "1:1024023906597:web:24493c45d4c7fac557b2cc"
+ apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId,
 };
 
 // Initialize Firebase

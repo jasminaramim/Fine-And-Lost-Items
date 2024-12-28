@@ -6,6 +6,8 @@ import Lottie from 'lottie-react';
 import registerAnimation from '../assets/registerlotti.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const RegisterPage = () => {
   const { register } = useContext(AuthContext);
@@ -14,13 +16,12 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [photoURL, setPhotoURL] = useState('');
   const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // State for toggling password visibility
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    // Password Validation
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
     if (!passwordRegex.test(password)) {
       setError('Password must have at least one uppercase letter, one lowercase letter, and be at least 6 characters long.');
@@ -29,23 +30,28 @@ const RegisterPage = () => {
     }
 
     try {
-      await register(email, password, name, photoURL); // Now register function will work
-      toast.success('Registration Successful');
-      navigate('/'); // Navigate to home page after registration
+      await register(email, password, name, photoURL);
+      toast.success('Registration Successful!');
+      Swal.fire({
+        title: 'Registration Successful!',
+        text: 'Welcome to the platform!',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      }).then(() => {
+        navigate('/');
+      });
     } catch (err) {
-      toast.error(err.message);
+      toast.error(`Error: ${err.message}`);
     }
   };
 
   return (
     <div className="flex justify-center items-center min-h-[calc(100vh-306px)] my-12">
       <div className="flex flex-col lg:flex-row w-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-lg">
-      
         <div className="lg:w-1/2 w-full lg:h-full h-64 flex justify-center items-center">
           <Lottie animationData={registerAnimation} loop={true} className="w-full h-full" />
         </div>
 
-        {/* Register Form Section */}
         <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
           <p className="mt-3 text-xl text-center text-gray-600">Create your account</p>
 
@@ -119,7 +125,6 @@ const RegisterPage = () => {
               </div>
             </div>
 
-          
             {error && (
               <div className="mt-4 text-red-500 text-sm">{error}</div>
             )}
@@ -137,12 +142,12 @@ const RegisterPage = () => {
           <div className="flex items-center justify-between mt-4">
             <span className="w-1/5 border-b md:w-1/4"></span>
 
-            <a
-              href="/login"
+            <Link
+              to="/login"
               className="text-xs text-gray-500 uppercase hover:underline"
             >
               Already have an account? Login
-            </a>
+            </Link>
 
             <span className="w-1/5 border-b md:w-1/4"></span>
           </div>

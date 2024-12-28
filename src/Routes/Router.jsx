@@ -9,14 +9,20 @@ import HomePage from "../Pages/HomePage";
 // import ManageMyItemsPage from "../Pages/ManageMyItemsPage";
 // import LoginPage from "../Pages/LoginPage";
 // import PrivateRoute from "../Components/PrivateRoute";
-import LostItemsPage from "../Compononets/LostItemsPage";
-import FoundItemsPage from "../Compononets/FoundItemsPage";
-import AddLostItemPage from "../Compononets/AddLostItemPage";
-import AddFoundItemPage from "../Compononets/AddFoundItemPage";
+// import LostItemsPage from "../Compononets/LostItemsPage";
+// import FoundItemsPage from "../Compononets/FoundItemsPage";
+// import AddLostItemPage from "../Compononets/AddLostItemPage";
+// import AddFoundItemPage from "../Compononets/AddFoundItemPage";
 import ManageMyItemsPage from "../Compononets/ManageMyItemsPage";
 import LoginPage from "../Pages/LoginPage";
 import PrivateRoute from "./PrivateRoute";
 import RegisterPage from "../Pages/RegisterPage";
+import RecoveryItems from "../Compononets/RecoveryItems";
+// import FoundItemsPage from "../Compononets/FoundItemsPage";
+import AddLostFoundItemPage from "../Compononets/AddLostItemPage";
+import AllItemsPage from "../Compononets/AllItemsPage";
+import PostDetailsPage from "../Pages/PostDetailsPage";
+import UpdateItemPage from "../Pages/UpdateItemPage";
 
 const Router = createHashRouter([
   {
@@ -28,37 +34,37 @@ const Router = createHashRouter([
     ),
   },
   {
-    path: "/lost-items",
+    path: "/AllItemsPage",
     element: (
       <Layout>
-        <LostItemsPage />
+        <AllItemsPage />
       </Layout>
     ),
   },
-  {
-    path: "/found-items",
-    element: (
-      <Layout>
-        <FoundItemsPage />
-      </Layout>
-    ),
-  },
+  // {
+  //   path: "/found-items",
+  //   element: (
+  //     <Layout>
+  //       <FoundItemsPage />
+  //     </Layout>
+  //   ),
+  // },
   {
     path: "/add-lost-item",
     element: (
       <PrivateRoute>
         <Layout>
-          <AddLostItemPage />
+          <AddLostFoundItemPage />
         </Layout>
       </PrivateRoute>
     ),
   },
   {
-    path: "/add-found-item",
+    path: "/All-Recovered-Items",
     element: (
       <PrivateRoute>
         <Layout>
-          <AddFoundItemPage />
+          <RecoveryItems />
         </Layout>
       </PrivateRoute>
     ),
@@ -88,6 +94,27 @@ const Router = createHashRouter([
       <Layout>
         <RegisterPage />
       </Layout>
+    ),
+  },
+
+  {
+    path: "/items/:id",
+    element: (
+      <PrivateRoute>
+      <Layout>
+        <PostDetailsPage />
+      </Layout>
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/updateItem/:id",
+    element: (
+      <PrivateRoute>
+        <Layout>
+          <UpdateItemPage />
+        </Layout>
+      </PrivateRoute>
     ),
   },
 ]);

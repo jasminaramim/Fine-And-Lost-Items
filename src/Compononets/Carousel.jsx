@@ -1,22 +1,29 @@
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-
-
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import Slide from './Slide';
+
+// Importing react-typed (ReactTyped)
+import { ReactTyped } from 'react-typed';
 
 import bgimg1 from '../assets/imgs/2205.i402.034.S.m004.c13.Treasure hunt flat composition.jpg'; 
 import bgimg2 from '../assets/imgs/9019879.jpg';
 import bgimg3 from '../assets/imgs/kids-participating-treasure-hunt.jpg'; 
+import { useState } from 'react';
 
 export default function Carousel() {
+  const handleTypedComplete = () => {
+    // Force re-render by changing the key to restart the typing effect
+    // This will trigger ReactTyped to restart from the beginning
+    setTypedKey(prevKey => prevKey + 1); 
+  };
+
+  const [typedKey, setTypedKey] = useState(0);
+
   return (
-    <div className='container px-6 py-10 mx-auto'>
+    <div className=''>
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
@@ -35,19 +42,49 @@ export default function Carousel() {
         <SwiperSlide>
           <Slide
             image={bgimg1}
-            text='Lost Your Belongings? Let Us Help You Find Them!'
+            text={
+              <ReactTyped
+                key={typedKey} // Use dynamic key to trigger re-render
+                strings={["Lost Your Belongings? Let Us Help You Find Them!"]}
+                typeSpeed={50}
+                backSpeed={30}
+                backDelay={1500}
+                onComplete={handleTypedComplete} // Callback to restart typing
+                showCursor={true}
+              />
+            }
           />
         </SwiperSlide>
         <SwiperSlide>
           <Slide
             image={bgimg2}
-            text='Find and Return Lost Items with Ease and Safety'
+            text={
+              <ReactTyped
+                key={typedKey} // Use dynamic key to trigger re-render
+                strings={["Find and Return Lost Items with Ease and Safety"]}
+                typeSpeed={50}
+                backSpeed={30}
+                backDelay={1500}
+                onComplete={handleTypedComplete} // Callback to restart typing
+                showCursor={true}
+              />
+            }
           />
         </SwiperSlide>
         <SwiperSlide>
           <Slide
             image={bgimg3}
-            text='Found Something? Help Reunite Lost Items with Their Owners!'
+            text={
+              <ReactTyped
+                key={typedKey} // Use dynamic key to trigger re-render
+                strings={["Found Something? Help Reunite Lost Items with Their Owners!"]}
+                typeSpeed={50}
+                backSpeed={30}
+                backDelay={1500}
+                onComplete={handleTypedComplete} // Callback to restart typing
+                showCursor={true}
+              />
+            }
           />
         </SwiperSlide>
       </Swiper>

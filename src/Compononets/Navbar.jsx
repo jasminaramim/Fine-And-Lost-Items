@@ -15,8 +15,8 @@ const Navbar = () => {
   };
 
   return (
-    <div >
-      <div className="navbar  bg-base-100 shadow-sm container px-4 mx-auto">
+    <div className="sticky shadow-xl top-0 z-20" >
+      <div className="navbar  bg-base-100 shadow-sm container px-4 ">
       <div className="flex-1">
         <Link to="/" className="flex gap-2 items-center">
           <img className="w-auto h-7" src={logo} alt="Website Logo" />
@@ -29,11 +29,9 @@ const Navbar = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/lost-items">Lost Items</Link>
+            <Link to="/AllItemsPage">AllItemsPage</Link>
           </li>
-          <li>
-            <Link to="/found-items">Found Items</Link>
-          </li>
+          
           {!user && (
             <li>
               <Link to="/login">Login</Link>
@@ -62,11 +60,11 @@ const Navbar = () => {
             >
               <li>
                 <Link to="/add-lost-item" className="justify-between">
-                  Add Lost Item
+                  Add Lost / Find Item
                 </Link>
               </li>
               <li>
-                <Link to="/add-found-item">Add Found Item</Link>
+                <Link to="/All-Recovered-Items">All Recovered Items </Link>
               </li>
               <li>
                 <Link to="/manage-my-items">Manage My Items</Link>
