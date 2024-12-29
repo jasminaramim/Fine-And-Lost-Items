@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { FaTh, FaTable } from 'react-icons/fa';
 import { Player } from '@lottiefiles/react-lottie-player';
 import noItemsAnimation from '../assets/notfound.json'; // Import your Lottie animation here
+import useAxiosSecure from '../Hooks/useAxiosSecure'; // Import useAxiosSecure
 
 const RecoveryItems = () => {
   const [recoveredItems, setRecoveredItems] = useState([]);
@@ -13,6 +14,7 @@ const RecoveryItems = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const axiosSecure = useAxiosSecure(); // Initialize axiosSecure
 
   const userEmail = user ? user.email : '';
 
@@ -28,9 +30,10 @@ const RecoveryItems = () => {
   const fetchRecoveredItems = async (email) => {
     setLoading(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/recoveries?email=${email}`);
-      if (response.ok) {
-        const data = await response.json();
+      const response = await axiosSecure.get(`/recoveries?email=${email}`);
+
+      if (response.status === 200) {
+        const data = response.data;
 
         if (Array.isArray(data)) {
           setRecoveredItems(data);
@@ -41,7 +44,7 @@ const RecoveryItems = () => {
           }
         }
       } else {
-        const errorData = await response.json();
+        const errorData = response.data;
         setError(errorData.message || 'Failed to fetch recovered items.');
         Swal.fire('Error', errorData.message || 'Failed to fetch recovered items', 'error');
       }

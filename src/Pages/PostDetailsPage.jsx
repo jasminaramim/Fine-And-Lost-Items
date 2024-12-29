@@ -4,6 +4,7 @@ import { useAuth } from "../Providers/Authprovider";
 import Swal from "sweetalert2";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import useAxiosSecure from '../Hooks/useAxiosSecure'; 
 
 const PostDetailsPage = () => {
     const { id } = useParams();
@@ -16,16 +17,12 @@ const PostDetailsPage = () => {
     const [error, setError] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedAction, setSelectedAction] = useState(""); 
-
+    const axiosSecure = useAxiosSecure(); 
     useEffect(() => {
         const fetchItemDetails = async () => {
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/items/${id}`);
-                if (!response.ok) {
-                    throw new Error("Item not found");
-                }
-                const data = await response.json();
-                setItem(data);
+                const response = await axiosSecure.get(`/items/${id}`);
+                setItem(response.data);
             } catch (err) {
                 console.error("Error fetching item details:", err);
                 setError("Failed to load item details. Please try again.");
@@ -37,7 +34,8 @@ const PostDetailsPage = () => {
         fetchItemDetails();
     }, [id]);
 
-    const handleRecoverySubmit = async () => {
+    const handleRecoverySubmit = async (e) => {
+        e.preventDefault();
         const recoveryData = {
             itemName: item.itemName,
             recoveredLocation,
@@ -51,23 +49,12 @@ const PostDetailsPage = () => {
             itemId: item._id,
             action: selectedAction,
         };
-    
+
         console.log("Recovery Data Sent:", recoveryData);
-    
+
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/recoveries`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(recoveryData),
-            });
-    
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error("Server Error:", errorData);
-                Swal.fire('Error', 'There was an issue recovering the item. Please try again.', 'error');
-            } else {
+            const response = await axiosSecure.post("/recoveries", recoveryData);
+            if (response.status === 200) {
                 console.log("Recovery submitted successfully.");
                 // Show SweetAlert on success
                 Swal.fire('Success', 'The item has been successfully recovered!', 'success').then(() => {
@@ -75,13 +62,15 @@ const PostDetailsPage = () => {
                     setModalOpen(false);
                     navigate('/'); // Redirect to home or desired page after recovery
                 });
+            } else {
+                console.error("Server Error:", response.data);
+                Swal.fire('Error', 'There was an issue recovering the item. Please try again.', 'error');
             }
         } catch (error) {
             console.error("Error submitting recovery:", error);
             Swal.fire('Error', 'An error occurred while submitting the recovery. Please try again.', 'error');
         }
     };
-    
     
     if (loading) {
         return (
@@ -103,8 +92,7 @@ const PostDetailsPage = () => {
         <div className="max-w-4xl mx-auto mt-10 p-4 border rounded-lg shadow-lg">
             <div className="border rounded-lg p-4">
                 <h2 className="text-3xl font-semibold mb-5">{item.itemName}</h2>
-                {/* Display the type or category of the item */}
-                <p className="text-gray-700 mb-4"><strong>Type:</strong> {item.category || "Unknown"}</p> {/* Add this line */}
+                <p className="text-gray-700 mb-4"><strong>Type:</strong> {item.category || "Unknown"}</p>
                 <img
                     src={item.image}
                     alt={item.title}
@@ -114,7 +102,7 @@ const PostDetailsPage = () => {
                 <p className="text-gray-700 mb-4"><strong>Location:</strong> {item.location}</p>
                 <p className="text-gray-700 mb-4"><strong>Date:</strong> {new Date(item.date).toLocaleDateString()}</p>
             </div>
-    
+
             {item.status === 'recovered' ? (
                 <div className="mt-6 flex justify-center items-center space-x-2 p-4 bg-green-100 border border-green-400 rounded-lg shadow-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="green" className="h-6 w-6" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -144,7 +132,7 @@ const PostDetailsPage = () => {
                     </button>
                 </div>
             )}
-    
+
             {modalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 sm:w-2/3 md:w-1/2">
@@ -154,7 +142,7 @@ const PostDetailsPage = () => {
                                 <label htmlFor="itemName" className="block text-lg font-medium mb-2">
                                     Item Name:
                                 </label>
-                                <p className="text-lg font-medium">{item.itemName}</p> {/* Added Item Name */}
+                                <p className="text-lg font-medium">{item.itemName}</p>
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="recoveredLocation" className="block text-lg font-medium mb-2">
