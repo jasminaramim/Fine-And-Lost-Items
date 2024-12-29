@@ -4,7 +4,7 @@
 "Find & Lost Items" is a web application designed to help individuals report and recover lost items. It provides a platform for users to post lost items, report found items, and initiate recovery actions. The app aims to bridge the gap between those who have lost something valuable and those who find it, promoting a community-driven approach to lost and found services.
 
 ## Live URL
-[Find & Lost Items - Live Demo](ttps://found-lost-items.netlify.app) *
+[Find & Lost Items - Live Demo](https://found-lost-items.netlify.app) *
 
 ## Key Features
 - **Post Lost Items**: Users can easily create a post to report lost items with a description, location, and photo.
