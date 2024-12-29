@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import useAxiosSecure from '../Hooks/useAxiosSecure';  // Import useAxiosSecure
+import useAxiosSecure from '../Hooks/useAxiosSecure'; 
 
 const AllItemsPage = () => {
   const [items, setItems] = useState([]);
-  const axiosSecure = useAxiosSecure();  // Initialize axiosSecure
+  const axiosSecure = useAxiosSecure();  
 
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const { data } = await axiosSecure.get('/items');  // Use axiosSecure for making authenticated request
+       
+        const { data } = await axiosSecure.get('/items');
         console.log('Fetched items:', data);
         setItems(data);
       } catch (error) {
@@ -17,8 +18,8 @@ const AllItemsPage = () => {
       }
     };
 
-    fetchItems();
-  }, [axiosSecure]);  // Add axiosSecure as a dependency
+    fetchItems();  
+  }, [axiosSecure]);  
 
   return (
     <div className="my-12 px-4">
