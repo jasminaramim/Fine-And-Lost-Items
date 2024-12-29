@@ -10,6 +10,7 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import { app } from '../Firebase/firebase.config';
+import axios from 'axios';
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -59,16 +60,44 @@ const AuthProvider = ({ children }) => {
   };
   
   // onAuthStateChanged
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, currentUser => {
+  //     setUser(currentUser);
+  //     console.log('CurrentUser-->', currentUser);
+  //     setLoading(false);
+  //   });
+  //   return () => {
+  //     return unsubscribe();
+  //   };
+  // }, []);
+
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, currentUser => {
-      setUser(currentUser);
-      console.log('CurrentUser-->', currentUser);
-      setLoading(false);
-    });
+    const unsubscribe = onAuthStateChanged(auth, async currentUser => {
+      console.log('CurrentUser-->', currentUser)
+      if (currentUser?.email) {
+        setUser(currentUser)
+        const { data } = await axios.post(
+          `${import.meta.env.VITE_API_URL}/jwt`,
+          {
+            email: currentUser?.email,
+          },
+          { withCredentials: true }
+        )
+        console.log(data)
+      } else {
+        setUser(currentUser)
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_API_URL}/logout`,
+          { withCredentials: true }
+        )
+      }
+      setLoading(false)
+    })
     return () => {
-      return unsubscribe();
-    };
-  }, []);
+      return unsubscribe()
+    }
+  }, [])
+
 
   const authInfo = {
     user,

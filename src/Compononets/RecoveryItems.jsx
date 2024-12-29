@@ -16,6 +16,7 @@ const RecoveryItems = () => {
 
   const userEmail = user ? user.email : '';
 
+  // Redirect to login if not authenticated
   useEffect(() => {
     if (!userEmail) {
       navigate('/login');
@@ -38,7 +39,7 @@ const RecoveryItems = () => {
           if (data.length === 0) {
             setError('No recovered items found for this user.');
           }
-        } 
+        }
       } else {
         const errorData = await response.json();
         setError(errorData.message || 'Failed to fetch recovered items.');

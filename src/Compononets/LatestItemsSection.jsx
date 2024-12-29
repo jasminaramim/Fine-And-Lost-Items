@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+// import axiosSecure from '../Hooks/useAxiosSecure';  // Import axiosSecure
 import { Link } from 'react-router-dom';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 const LatestItemsSection = () => {
   const [items, setItems] = useState([]);
@@ -10,7 +11,7 @@ const LatestItemsSection = () => {
   const [sort, setSort] = useState('dsc');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  const axiosSecure = useAxiosSecure()
   useEffect(() => {
     fetchLatestItems();
   }, [filter, search, sort]);
@@ -18,7 +19,8 @@ const LatestItemsSection = () => {
   const fetchLatestItems = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/items`);
+      // Use axiosSecure here for making the authenticated request
+      const response = await axiosSecure.get('/items');
       let filteredItems = response.data;
 
       if (filter) {

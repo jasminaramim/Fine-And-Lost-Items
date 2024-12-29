@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Providers/Authprovider';
-import axios from 'axios';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../Hooks/useAxiosSecure'; 
 
 const UpdateItemPage = () => {
     const { id } = useParams();
@@ -18,10 +18,12 @@ const UpdateItemPage = () => {
     });
     const [isLoading, setIsLoading] = useState(true);
 
+    const axiosSecure = useAxiosSecure();  // Initialize axiosSecure
+
     useEffect(() => {
         const fetchItemDetails = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/items/${id}`);
+                const response = await axiosSecure.get(`/items/${id}`);  // Use axiosSecure to make the request
                 if (response.status === 200) {
                     setItem(response.data);
                 } else {
@@ -35,26 +37,25 @@ const UpdateItemPage = () => {
         };
 
         fetchItemDetails();
-    }, [id]);
+    }, [id, axiosSecure]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-       
         if (!item.itemName || !item.description || !item.category || !item.location) {
             return Swal.fire('Error', 'All fields are required.', 'error');
         }
 
         try {
-            const response = await axios.patch(
-                `${import.meta.env.VITE_API_URL}/updateItem/${id}`,
+            const response = await axiosSecure.patch(  // Use axiosSecure for the PATCH request
+                `/updateItem/${id}`,
                 item,
                 { headers: { 'Content-Type': 'application/json' } }
             );
 
             if (response.status === 200) {
                 Swal.fire('Success', 'Item updated successfully!', 'success');
-                navigate('/manage-my-items'); 
+                navigate('/manage-my-items');
             } else {
                 Swal.fire('Error', response.data.message || 'Failed to update item.', 'error');
             }
@@ -64,7 +65,6 @@ const UpdateItemPage = () => {
         }
     };
 
-   
     const handleChange = (e) => {
         const { name, value } = e.target;
         setItem({ ...item, [name]: value });

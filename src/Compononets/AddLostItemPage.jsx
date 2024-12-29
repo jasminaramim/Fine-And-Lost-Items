@@ -1,9 +1,8 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useAuth } from '../Providers/Authprovider';
+import useAxiosSecure from '../Hooks/useAxiosSecure'; // Import useAxiosSecure
 
 const AddLostFoundItemsPage = () => {
     const { user: currentUser } = useAuth();
@@ -18,6 +17,7 @@ const AddLostFoundItemsPage = () => {
         userName: '',
     });
     const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure(); // Initialize axiosSecure
 
     useEffect(() => {
         if (currentUser) {
@@ -41,18 +41,9 @@ const AddLostFoundItemsPage = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/items`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
+            const response = await axiosSecure.post('/items', formData);
 
-            if (response.ok) {
-                const result = await response.json();
-                console.log('Item added successfully:', result);
-
+            if (response.status === 201) {
                 Swal.fire({
                     title: 'Success!',
                     text: 'Item added successfully!',

@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import Lottie from 'react-lottie';
 import noItemsAnimation from '../assets/notfound.json'; // Your Lottie file path
+import useAxiosSecure from '../Hooks/useAxiosSecure'; // Import your axios instance
 
 const ManageMyItemsPage = () => {
     const [items, setItems] = useState([]);
@@ -14,6 +15,7 @@ const ManageMyItemsPage = () => {
     const [userEmail, setUserEmail] = useState('');
     const [error, setError] = useState(null); 
     const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();  // Initialize axiosSecure
 
     useEffect(() => {
         const auth = getAuth();
@@ -27,27 +29,22 @@ const ManageMyItemsPage = () => {
     }, []);
 
     useEffect(() => {
-        if (!userEmail) return; 
+        if (!userEmail) return;
 
         const fetchItems = async () => {
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/items?email=${userEmail}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setItems(data); 
-                } else {
-                    throw new Error('Failed to fetch items');
-                }
+                const { data } = await axiosSecure.get(`/items?email=${userEmail}`);
+                setItems(data);
             } catch (error) {
-                setError(error.message); 
+                setError(error.message);
                 Swal.fire('Error', error.message, 'error');
             } finally {
-                setIsLoading(false); 
+                setIsLoading(false);
             }
         };
-        
+
         fetchItems();
-    }, [userEmail]);
+    }, [userEmail, axiosSecure]);
 
     const modernDelete = async (id) => {
         const result = await Swal.fire({
@@ -61,7 +58,7 @@ const ManageMyItemsPage = () => {
 
         if (result.isConfirmed) {
             try {
-                const { data } = await axios.delete(`${import.meta.env.VITE_API_URL}/items/${id}`);
+                await axiosSecure.delete(`/items/${id}`);
                 toast.success('Item Deleted Successfully!');
                 setItems(items.filter(item => item._id !== id));
             } catch (err) {
