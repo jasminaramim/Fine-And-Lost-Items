@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const LatestItemsSection = () => {
   const [items, setItems] = useState([]);
-  const [filter, setFilter] = useState('');  
+  const [filter, setFilter] = useState('');
   const [search, setSearch] = useState('');
-  const [sort, setSort] = useState('dsc');  
+  const [sort, setSort] = useState('dsc');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -15,42 +16,37 @@ const LatestItemsSection = () => {
   }, [filter, search, sort]);
 
   const fetchLatestItems = async () => {
-    setLoading(true);  
+    setLoading(true);
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/items`);
       let filteredItems = response.data;
-  
-      console.log("Items before filtering:", filteredItems);
-      console.log("Current filter:", filter);
-  
+
       if (filter) {
         filteredItems = filteredItems.filter(item =>
-          item.category.toLowerCase() === filter.toLowerCase() 
+          item.category.toLowerCase() === filter.toLowerCase()
         );
-        console.log("Filtered items:", filteredItems); 
       }
-  
 
       if (search) {
         filteredItems = filteredItems.filter(item =>
           item.itemName.toLowerCase().includes(search.toLowerCase())
         );
       }
-  
+
       filteredItems.sort((a, b) => {
         if (sort === 'dsc') {
           return new Date(b.date) - new Date(a.date);
         } else {
-          return new Date(a.date) - new Date(b.date); 
+          return new Date(a.date) - new Date(b.date);
         }
       });
-  
+
       setItems(filteredItems);
     } catch (error) {
       setError('Failed to load items. Please try again later.');
       console.error('Error fetching items:', error);
     } finally {
-      setLoading(false);  
+      setLoading(false);
     }
   };
 
@@ -109,15 +105,20 @@ const LatestItemsSection = () => {
         </div>
       )}
 
-      {error && (
-        <div className="text-center text-red-500">{error}</div>
-      )}
+      {error && <div className="text-center text-red-500">{error}</div>}
 
       {/* Latest Items Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {items.length > 0 ? (
-          items.slice(0, 6).map((item) => (
-            <div key={item._id} className="bg-white shadow-md rounded-lg overflow-hidden">
+          items.map((item) => (
+            <motion.div
+              key={item._id}
+              className="bg-white shadow-md rounded-lg overflow-hidden"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              drag
+              dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+            >
               <img
                 src={item.image}
                 alt={item.itemName}
@@ -127,14 +128,19 @@ const LatestItemsSection = () => {
                 <h3 className="text-xl font-bold">{item.itemName}</h3>
                 <p className="text-gray-600 text-sm">Category: {item.category}</p>
                 <p className="text-gray-600 text-sm">Location: {item.location}</p>
-                <p className="text-gray-600 text-sm">Date: {new Date(item.date).toLocaleDateString()}</p>
+                <p className="text-gray-600 text-sm">
+                  Date: {new Date(item.date).toLocaleDateString()}
+                </p>
                 <div className="mt-4">
-                  <Link to={`/items/${item._id}`} className="text-blue-500 underline hover:text-blue-700">
+                  <Link
+                    to={`/items/${item._id}`}
+                    className="text-blue-500 underline hover:text-blue-700"
+                  >
                     View Details
                   </Link>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))
         ) : (
           <p>No items available</p>
