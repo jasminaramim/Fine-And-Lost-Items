@@ -31,6 +31,7 @@
     "react-lottie": "^1.2.10",
     "react-modal": "^3.16.3",
     "react-router-dom": "^7.1.0",
+    "react-spinners": "^0.15.0",
     "react-toastify": "^11.0.2",
     "react-typed": "^2.0.12",
     "sort-by": "^1.2.0",

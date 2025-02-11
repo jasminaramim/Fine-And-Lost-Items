@@ -64,7 +64,7 @@ const RegisterPage = () => {
                 id="name"
                 name="name"
                 type="text"
-                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-red-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-red-300"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
@@ -79,7 +79,7 @@ const RegisterPage = () => {
                 id="email"
                 name="email"
                 type="email"
-                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-red-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-red-300"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -94,7 +94,7 @@ const RegisterPage = () => {
                 id="photoURL"
                 name="photoURL"
                 type="text"
-                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-red-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-red-300"
                 value={photoURL}
                 onChange={(e) => setPhotoURL(e.target.value)}
                 required
@@ -110,7 +110,7 @@ const RegisterPage = () => {
                   id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
-                  className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+                  className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-red-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-red-300"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required

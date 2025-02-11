@@ -63,7 +63,7 @@ const RecoveryItems = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center my-10">
-        <div className="w-16 h-16 border-4 border-t-transparent border-blue-500 border-solid rounded-full animate-spin"></div>
+        <div className="w-16 h-16 border-4 border-t-transparent border-red-500 border-solid rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -88,7 +88,7 @@ const RecoveryItems = () => {
       <h2 className="text-3xl font-semibold mb-4">Your Recovered Items</h2>
       <button
         onClick={toggleLayout}
-        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-md flex items-center gap-2"
+        className="mb-4 px-4 py-2 bg-red-500 text-white rounded-md flex items-center gap-2"
       >
         {isGridLayout ? (
           <>
@@ -113,7 +113,7 @@ const RecoveryItems = () => {
           <p className="mt-5 text-lg font-semibold text-gray-700">No items found. Please add items to your collection.</p>
           <button 
             onClick={() => navigate('/AllItemsPage')} 
-            className="mt-5 px-6 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+            className="mt-5 px-6 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600">
             Recover an item
           </button>
         </div>
@@ -122,15 +122,18 @@ const RecoveryItems = () => {
           {isGridLayout ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {recoveredItems.map((item) => (
-                <div key={item._id} className="bg-white border rounded-lg overflow-hidden">
-                  <div className="p-4">
-                    <h3 className="text-xl font-bold">{item.itemName}</h3>
-                    <p className="text-gray-600 text-sm">Location: {item.recoveredLocation}</p>
-                    <p className="text-gray-600 text-sm">
+                <div
+                  key={item._id}
+                  className="bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 text-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+                >
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold">{item.itemName}</h3>
+                    <p className="text-gray-200 text-sm">Location: {item.recoveredLocation}</p>
+                    <p className="text-gray-200 text-sm">
                       Recovered Date: {new Date(item.recoveredDate).toLocaleDateString()}
                     </p>
-                    <p className="text-gray-600 text-sm">Recovered By: {item.recoveredBy.name}</p>
-                    <p className="text-gray-600 text-sm">Status: {item.status || 'Pending'}</p>
+                    <p className="text-gray-200 text-sm">Recovered By: {item.recoveredBy.name}</p>
+                    <p className="text-gray-200 text-sm">Status: {item.status || 'Pending'}</p>
                   </div>
                 </div>
               ))}

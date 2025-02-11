@@ -23,6 +23,10 @@ import AddLostFoundItemPage from "../Compononets/AddLostItemPage";
 import AllItemsPage from "../Compononets/AllItemsPage";
 import PostDetailsPage from "../Pages/PostDetailsPage";
 import UpdateItemPage from "../Pages/UpdateItemPage";
+import AboutUsPage from "../Pages/AboutUsPage";
+import FeedbackPage from "../Pages/FeedbackPage";
+import ServicesPage from "../Pages/ServicesPage";
+import NotFoundPage from "../Pages/NotFoundPage ";
 
 const Router = createHashRouter([
   {
@@ -30,6 +34,30 @@ const Router = createHashRouter([
     element: (
       <Layout>
         <HomePage />
+      </Layout>
+    ),
+  },
+  {
+    path: "/services",
+    element: (
+      <Layout>
+        <ServicesPage />
+      </Layout>
+    ),
+  },
+  {
+    path: "/feedback",
+    element: (
+      <Layout>
+        <FeedbackPage />
+      </Layout>
+    ),
+  },
+  {
+    path: "/about-us",
+    element: (
+      <Layout>
+        <AboutUsPage />
       </Layout>
     ),
   },
@@ -116,6 +144,10 @@ const Router = createHashRouter([
         </Layout>
       </PrivateRoute>
     ),
+  },
+  {
+    path: "*", // This will match any unmatched path
+    element: <NotFoundPage />,
   },
 ]);
 

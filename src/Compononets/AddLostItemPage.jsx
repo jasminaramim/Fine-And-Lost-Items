@@ -92,61 +92,61 @@ const AddLostFoundItemsPage = () => {
 
     return (
         <div className="max-w-md mx-auto mt-10 p-5 border rounded-lg shadow-lg">
-            <h2 className="text-2xl font-semibold mb-5">Add Lost/Found Item</h2>
+            <h2 className="text-2xl font-semibold mb-5 text-red-500">Add Lost/Found Item</h2>
             <form onSubmit={handleSubmit}>
                 {/* Image URL */}
                 <div className="mb-4">
-                    <label htmlFor="image" className="block text-lg font-medium mb-2">Image URL</label>
+                    <label htmlFor="image" className="block text-lg font-medium mb-2 text-red-500">Image URL</label>
                     <input
                         type="text"
                         id="image"
                         name="image"
                         value={formData.image}
                         onChange={handleInputChange}
-                        className="w-full p-2 border rounded"
+                        className="w-full p-2 border rounded text-red-500" // Added text-red-500 to make input text red
                         required
                     />
                 </div>
 
                 {/* Item Name */}
                 <div className="mb-4">
-                    <label htmlFor="itemName" className="block text-lg font-medium mb-2">Item Name</label>
+                    <label htmlFor="itemName" className="block text-lg font-medium mb-2 text-red-500">Item Name</label>
                     <input
                         type="text"
                         id="itemName"
                         name="itemName"
                         value={formData.itemName}
                         onChange={handleInputChange}
-                        className="w-full p-2 border rounded"
+                        className="w-full p-2 border rounded text-red-500" // Added text-red-500 to make input text red
                         required
                     />
                 </div>
 
                 {/* Category */}
                 <div className="mb-4">
-                    <label htmlFor="category" className="block text-lg font-medium mb-2">Category</label>
+                    <label htmlFor="category" className="block text-lg font-medium mb-2 text-red-500">Category</label>
                     <select
                         id="category"
                         name="category"
                         value={formData.category}
                         onChange={handleInputChange}
-                        className="w-full p-2 border rounded"
+                        className="w-full p-2 border rounded text-red-500" // Added text-red-500 to make input text red
                         required
                     >
-                        <option value="lost">Lost</option>
-                        <option value="found">Found</option>
+                        <option className='text-red-500' value="lost">Lost</option>
+                        <option className='text-red-500' value="found">Found</option>
                     </select>
                 </div>
 
                 {/* Description */}
                 <div className="mb-4">
-                    <label htmlFor="description" className="block text-lg font-medium mb-2">Description</label>
+                    <label htmlFor="description" className="block text-lg font-medium mb-2 text-red-500">Description</label>
                     <textarea
                         id="description"
                         name="description"
                         value={formData.description}
                         onChange={handleInputChange}
-                        className="w-full p-2 border rounded"
+                        className="w-full p-2 border rounded text-red-500" // Added text-red-500 to make input text red
                         rows="4"
                         required
                     />
@@ -154,35 +154,35 @@ const AddLostFoundItemsPage = () => {
 
                 {/* Date */}
                 <div className="mb-4">
-                    <label htmlFor="date" className="block text-lg font-medium mb-2">Date</label>
+                    <label htmlFor="date" className="block text-lg font-medium mb-2 text-red-500">Date</label>
                     <input
                         type="date"
                         id="date"
                         name="date"
                         value={formData.date}
                         onChange={handleInputChange}
-                        className="w-full p-2 border rounded"
+                        className="w-full p-2 border rounded text-red-500" // Added text-red-500 to make input text red
                         required
                     />
                 </div>
 
                 {/* Location */}
                 <div className="mb-4">
-                    <label htmlFor="location" className="block text-lg font-medium mb-2">Location</label>
+                    <label htmlFor="location" className="block text-lg font-medium mb-2 text-red-500">Location</label>
                     <input
                         type="text"
                         id="location"
                         name="location"
                         value={formData.location}
                         onChange={handleInputChange}
-                        className="w-full p-2 border rounded"
+                        className="w-full p-2 border rounded text-red-500" // Added text-red-500 to make input text red
                         required
                     />
                 </div>
 
                 <button
                     type="submit"
-                    className="w-full bg-blue-500 text-white p-3 rounded-lg"
+                    className="w-full bg-red-500 text-white p-3 rounded-lg"
                 >
                     Add Item
                 </button>

@@ -75,7 +75,7 @@ const PostDetailsPage = () => {
     if (loading) {
         return (
             <div className="flex justify-center items-center my-10">
-                <div className="w-16 h-16 border-4 border-t-transparent border-blue-500 border-solid rounded-full animate-spin"></div>
+                <div className="w-16 h-16 border-4 border-t-transparent border-red-500 border-solid rounded-full animate-spin"></div>
             </div>
         );
     }
@@ -89,7 +89,7 @@ const PostDetailsPage = () => {
     }
 
     return (
-        <div className="max-w-4xl mx-auto mt-10 p-4 border rounded-lg shadow-lg">
+        <div className="max-w-4xl  bg-gradient-to-r mb-10 from-red-300 to-orange-400 mx-auto mt-10 p-4 border rounded-lg shadow-lg">
             <div className="border rounded-lg p-4">
                 <h2 className="text-3xl font-semibold mb-5">{item.itemName}</h2>
                 <p className="text-gray-700 mb-4"><strong>Type:</strong> {item.category || "Unknown"}</p>
@@ -178,7 +178,7 @@ const PostDetailsPage = () => {
                             </div>
                             <button
                                 type="submit"
-                                className="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600"
+                                className="w-full bg-red-500 text-white p-3 rounded-lg hover:bg-red-600"
                             >
                                 Submit Recovery Information
                             </button>

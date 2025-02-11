@@ -82,19 +82,19 @@ const ManageMyItemsPage = () => {
 
     return (
         <div className="max-w-4xl mx-auto mt-10 p-5">
-            <h2 className="text-2xl font-semibold mb-5">All Items</h2>
+            <h2 className="text-2xl font-semibold mb-5 text-black">All Items</h2>
 
             {isLoading ? (
-                <p>Loading your items...</p>
+                <p className="text-black">Loading your items...</p>
             ) : error ? (
                 <p className="text-red-500">Error: {error}</p>
             ) : items.length === 0 ? (
                 <div className="flex flex-col items-center justify-center p-10 text-center bg-gray-100 rounded-lg shadow-md">
                     <Lottie options={lottieOptions} height={200} width={200} />
-                    <p className="mt-5 text-lg font-semibold text-gray-700">No items found. Please add items to your collection.</p>
+                    <p className="mt-5 text-lg font-semibold text-black">No items found. Please add items to your collection.</p>
                     <button 
                         onClick={() => navigate('/add-lost-item')} 
-                        className="mt-5 px-6 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+                        className="mt-5 px-6 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600">
                         Add an Item
                     </button>
                 </div>
@@ -103,8 +103,8 @@ const ManageMyItemsPage = () => {
                     <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                             <div className="overflow-hidden border-2 border-gray-300 md:rounded-lg">
-                                <table className="min-w-full divide-y divide-gray-200">
-                                    <thead className="bg-gray-50">
+                                <table className="min-w-full divide-y divide-gray-200 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+                                    <thead className="text-white">
                                         <tr>
                                             <th scope="col" className="py-3.5 px-4 text-sm font-normal text-left text-gray-500 border border-gray-300">
                                                 <span>Title</span>
@@ -120,13 +120,13 @@ const ManageMyItemsPage = () => {
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody className="bg-white divide-y divide-gray-200">
+                                    <tbody className="bg-gradient-to-r from-purple-300 via-pink-400 to-red-400">
                                         {items.map((item) => (
                                             <tr key={item._id}>
-                                                <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap border border-gray-300">{item.itemName}</td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap capitalize border border-gray-300">{item.category}</td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap border border-gray-300">{new Date(item.date).toLocaleDateString()}</td>
-                                                <td className="px-4 py-4 text-sm whitespace-nowrap border border-gray-300">
+                                                <td className="px-4 py-4 text-sm text-black whitespace-nowrap border border-gray-300">{item.itemName}</td>
+                                                <td className="px-4 py-4 text-sm text-black whitespace-nowrap capitalize border border-gray-300">{item.category}</td>
+                                                <td className="px-4 py-4 text-sm text-black whitespace-nowrap border border-gray-300">{new Date(item.date).toLocaleDateString()}</td>
+                                                <td className="px-4 py-4 text-sm text-black whitespace-nowrap border border-gray-300">
                                                     <div className="flex items-center gap-x-6">
                                                         <button
                                                             onClick={() => handleUpdateClick(item._id)}

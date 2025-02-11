@@ -76,10 +76,10 @@ const UpdateItemPage = () => {
 
     return (
         <div className="max-w-4xl mx-auto mt-10 p-5">
-            <h2 className="text-2xl font-semibold mb-5">Update Item</h2>
+            <h2 className="text-2xl font-semibold mb-5 text-red-500">Update Item</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label htmlFor="itemName" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="itemName" className="block text-sm font-medium text-red-500">
                         Title
                     </label>
                     <input
@@ -88,13 +88,13 @@ const UpdateItemPage = () => {
                         name="itemName"
                         value={item.itemName}
                         onChange={handleChange}
-                        className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+                        className="mt-1 p-2 w-full border border-red-500 rounded-md text-red-500"
                         required
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="description" className="block text-sm font-medium text-red-500">
                         Description
                     </label>
                     <textarea
@@ -102,13 +102,13 @@ const UpdateItemPage = () => {
                         name="description"
                         value={item.description}
                         onChange={handleChange}
-                        className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+                        className="mt-1 p-2 w-full border border-red-500 rounded-md text-red-500"
                         required
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="category" className="block text-sm font-medium text-red-500">
                         Post Type
                     </label>
                     <input
@@ -117,13 +117,13 @@ const UpdateItemPage = () => {
                         name="category"
                         value={item.category}
                         onChange={handleChange}
-                        className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+                        className="mt-1 p-2 w-full border border-red-500 rounded-md text-red-500"
                         required
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="location" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="location" className="block text-sm font-medium text-red-500">
                         Location
                     </label>
                     <input
@@ -132,40 +132,40 @@ const UpdateItemPage = () => {
                         name="location"
                         value={item.location}
                         onChange={handleChange}
-                        className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+                        className="mt-1 p-2 w-full border border-red-500 rounded-md text-red-500"
                         required
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="userEmail" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="userEmail" className="block text-sm font-medium text-red-500">
                         User Email
                     </label>
                     <input
                         type="email"
                         id="userEmail"
                         value={user?.email || ''}
-                        className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+                        className="mt-1 p-2 w-full border border-red-500 rounded-md text-red-500"
                         readOnly
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="userName" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="userName" className="block text-sm font-medium text-red-500">
                         User Name
                     </label>
                     <input
                         type="text"
                         id="userName"
                         value={user?.displayName || ''}
-                        className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+                        className="mt-1 p-2 w-full border border-red-500 rounded-md text-red-500"
                         readOnly
                     />
                 </div>
 
                 <button
                     type="submit"
-                    className="mt-4 bg-blue-500 text-white p-2 rounded-md"
+                    className="mt-4 bg-red-500 text-white p-2 rounded-md"
                 >
                     Update Item
                 </button>
