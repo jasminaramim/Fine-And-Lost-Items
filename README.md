@@ -1,8 +1,4 @@
-Here’s the **VS Code-friendly version** of your `README.md` file. Just copy and paste this into your `README.md` file in **VS Code** to format it properly.
 
----
-
-```md
 # 🏷️ Find & Lost Items
 
 ![Find & Lost Items](./src/assets/imgs/image.png)  
